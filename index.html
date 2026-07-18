@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Resume Strength Analyzer</title>
+
+<style>
+    body {
+        font-family: Poppins, Arial, sans-serif;
+        background: linear-gradient(135deg, #00c6ff, #0072ff);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+        color: #fff;
+    }
+
+    .container {
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(12px);
+        padding: 30px;
+        width: 380px;
+        border-radius: 20px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        animation: fadeIn 1.2s ease-in-out;
+        text-align: center;
+    }
+
+    @keyframes fadeIn {
+        0% { opacity: 0; transform: translateY(20px); }
+        100% { opacity: 1; transform: translateY(0); }
+    }
+
+    h1 {
+        margin-bottom: 10px;
+        font-size: 26px;
+        letter-spacing: 1px;
+    }
+
+    label {
+        display: block;
+        margin-top: 10px;
+        text-align: left;
+        font-size: 14px;
+        font-weight: bold;
+    }
+
+    input, select {
+        width: 100%;
+        padding: 10px;
+        border-radius: 10px;
+        border: none;
+        margin-top: 5px;
+        outline: none;
+        background: rgba(255,255,255,0.8);
+        font-size: 16px;
+    }
+
+    button {
+        margin-top: 15px;
+        background-color: #00ff99;
+        color: #003322;
+        font-weight: bold;
+        border: none;
+        padding: 12px 25px;
+        border-radius: 12px;
+        cursor: pointer;
+        width: 100%;
+        font-size: 16px;
+        transition: 0.3s;
+    }
+
+    button:hover {
+        background-color: #00cc7d;
+        transform: scale(1.05);
+    }
+
+    #result {
+        margin-top: 20px;
+        font-size: 18px;
+        font-weight: bold;
+        padding: 15px;
+        border-radius: 12px;
+        background: rgba(0,0,0,0.2);
+    }
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+    <h1>Resume Strength Analyzer</h1>
+    <p>Evaluate your resume score instantly!</p>
+
+    <label>Education Level:</label>
+    <select id="education">
+        <option value="10">High School</option>
+        <option value="20">Undergraduate</option>
+        <option value="30">Postgraduate</option>
+        <option value="40">PhD</option>
+    </select>
+
+    <label>Technical Skills Count:</label>
+    <input type="number" id="skills" min="0" max="30" placeholder="e.g. 6">
+
+    <label>Years of Experience:</label>
+    <input type="number" id="experience" min="0" max="50" placeholder="e.g. 2">
+
+    <label>Number of Projects:</label>
+    <input type="number" id="projects" min="0" max="50" placeholder="e.g. 4">
+
+    <label>Certifications Earned:</label>
+    <input type="number" id="certifications" min="0" max="20" placeholder="e.g. 3">
+
+    <button onclick="calculateScore()">Analyze Resume</button>
+
+    <div id="result"></div>
+</div>
+
+<script>
+function calculateScore() {
+    const education = parseInt(document.getElementById("education").value);
+    const skills = parseInt(document.getElementById("skills").value) || 0;
+    const experience = parseInt(document.getElementById("experience").value) || 0;
+    const projects = parseInt(document.getElementById("projects").value) || 0;
+    const certifications = parseInt(document.getElementById("certifications").value) || 0;
+
+    // Enhanced scoring formula
+    const total =
+        education +
+        (skills * 2) +
+        (experience * 3) +
+        (projects * 2) +
+        (certifications * 2);
+
+    let level = "";
+    if (total >= 100) {
+        level = "🌟 Outstanding Resume – You stand out!";
+    } else if (total >= 70) {
+        level = "👍 Strong Resume – Good chances!";
+    } else if (total >= 40) {
+        level = "👌 Fair Resume – Needs some polishing.";
+    } else {
+        level = "💡 Weak Resume – Improve certain areas.";
+    }
+
+    document.getElementById("result").innerHTML = 
+        `Score: <b>${total}</b> <br>${level}`;
+}
+</script>
+
+</body>
+</html>
